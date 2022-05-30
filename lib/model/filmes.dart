@@ -1,26 +1,25 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 class Filmes {
   bool adult;
   String backdrop_path;
   List<int> genre_ids;
-  String id;
+  String? id;
   String original_language;
   String original_title;
   String overview;
-  String popularity;
+  double popularity;
   String poster_path;
   String release_date;
   String title;
   bool video;
-  String vote_average;
-  String vote_count;
+  double vote_average;
+  double vote_count;
   Filmes({
     required this.adult,
     required this.backdrop_path,
     required this.genre_ids,
-    required this.id,
+    this.id,
     required this.original_language,
     required this.original_title,
     required this.overview,
@@ -37,7 +36,7 @@ class Filmes {
     return {
       'adult': adult,
       'backdrop_path': backdrop_path,
-      'genre_ids': [genre_ids],
+      'genre_ids': genre_ids,
       'id': id,
       'original_language': original_language,
       'original_title': original_title,
@@ -56,18 +55,18 @@ class Filmes {
     return Filmes(
       adult: map['adult'] ?? false,
       backdrop_path: map['backdrop_path'] ?? '',
-      genre_ids: List<int>.from(map['genre_ids'] ?? 0),
+      genre_ids: List<int>.from(map['genre_ids']),
       id: map['id'] ?? '',
       original_language: map['original_language'] ?? '',
       original_title: map['original_title'] ?? '',
       overview: map['overview'] ?? '',
-      popularity: map['popularity']  ,
+      popularity: double.tryParse(map['popularity'].toString()) ?? 0.0,
       poster_path: map['poster_path'] ?? '',
       release_date: map['release_date'] ?? '',
       title: map['title'] ?? '',
       video: map['video'] ?? false,
-      vote_average: map['vote_average'] ?? '',
-      vote_count: map['vote_count'] ?? '',
+      vote_average: double.tryParse(map['vote_average'].toString()) ?? 0.0,
+      vote_count: double.tryParse(map['vote_count'].toString()) ?? 0.0,
     );
   }
   String toJson() => jsonEncode(toMap());
